@@ -1,19 +1,21 @@
-﻿using System;
+﻿using MetroFramework.Controls;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Net;
 
-
-namespace MyChat
+namespace MyChat.Views
 {
-    public partial class frmStart : Form
+    public partial class frmStart : MetroFramework.Forms.MetroForm
     {
+
         #region Khai Báo biến
         /// <summary>
         /// Di chuyển form
@@ -30,8 +32,8 @@ namespace MyChat
             {
                 if (address.AddressFamily == AddressFamily.InterNetwork)
                 {
-
-                    textBox_ipServer.Text = address.ToString();
+                    lbl_ipServer.Text = address.ToString();
+                    txtServer.Text = address.ToString();
                 }
             }
         }
@@ -53,65 +55,48 @@ namespace MyChat
             }
         }
 
-        private void frmStart_MouseDown(object sender, MouseEventArgs e)
-        {
-            drag = true;
-            dragCursor = Cursor.Position;
-            dragForm = this.Location;
-        }
-
-        private void frmStart_MouseMove(object sender, MouseEventArgs e)
-        {
-            int wid = SystemInformation.VirtualScreen.Width;
-            int hei = SystemInformation.VirtualScreen.Height;
-            if (drag)
-            {
-                Point change = Point.Subtract(Cursor.Position, new Size(dragCursor));
-                Point newpos = Point.Add(dragForm, new Size(change));
-                if (newpos.X < 0) newpos.X = 0;
-                if (newpos.Y < 0) newpos.Y = 0;
-                if (newpos.X + this.Width > wid) newpos.X = wid - this.Width;
-                if (newpos.Y + this.Height > hei) newpos.Y = hei - this.Height;
-                this.Location = newpos;
-            }
-        }
-
         private void btnExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void btnClient_Click(object sender, EventArgs e)
+        private void clientToggle_CheckedChanged(object sender, EventArgs e)
         {
-            // Client
-            Setting.Mode = Setting.Modes.Client;
-            // Connect to server 
-            Setting.Server = txtServer.Text;
-            
-            try
-            {
-                Setting.TcpServer = new TcpClient(Setting.Server, Setting.Port);
-            }
-            catch
-            {
-                MessageBox.Show("Không thể kết nối tới server");
-                return;
-            }
-
-            this.DialogResult = DialogResult.OK;
+            MetroToggle toggle = (MetroToggle)sender;
+            lbl_ipServer.Visible = !toggle.Checked;
+            lblRunAsServer.Visible = !toggle.Checked;
+            txtServer.Visible = toggle.Checked;
+            lblRunAsClient.Visible = toggle.Checked;
         }
 
-        private void btnServer_Click(object sender, EventArgs e)
+        private void btnStart_Click(object sender, EventArgs e)
         {
-            Setting.Mode = Setting.Modes.Server;
-            // Start server
+            if (clientToggle.Checked)
+            {
+                // Client
+                Setting.Mode = Setting.Modes.Client;
+                // Connect to server 
+                Setting.Server = txtServer.Text;
+
+                try
+                {
+                    Setting.TcpServer = new TcpClient(Setting.Server, Setting.Port);
+                }
+                catch
+                {
+                    MessageBox.Show("Không thể kết nối tới server");
+                    return;
+                }
+            }
+            else
+            {
+
+                Setting.Mode = Setting.Modes.Server;
+                // Start server
+            }
+
 
             this.DialogResult = DialogResult.OK;
-        }
-
-        private void frmStart_MouseUp(object sender, MouseEventArgs e)
-        {
-            drag = false;
         }
     }
 }

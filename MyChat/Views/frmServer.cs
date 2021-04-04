@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using MyChat.Views;
+using MyChat.Views.ReadDicom;
 
 namespace MyChat
 {
@@ -481,8 +482,8 @@ namespace MyChat
 
         private void button1_Click(object sender, EventArgs e)
         {
-            frmDicom frm = new frmDicom();
-            frm.Show();
+            frmDicomReader frm = new frmDicomReader();
+            frm.ShowDialog();
         }
 
         private void txtMessage_KeyDown(object sender, KeyEventArgs e)

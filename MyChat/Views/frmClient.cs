@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyChat.Views.ReadDicom;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -403,7 +404,7 @@ namespace MyChat
 
         private void button1_Click(object sender, EventArgs e)
         {
-            frmDicom frm = new frmDicom();
+            frmDicomReader frm = new frmDicomReader();
             frm.Show();
         }
 

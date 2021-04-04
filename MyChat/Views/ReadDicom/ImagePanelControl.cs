@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
+using MyChat.Views.ReadDicom;
 
 // Written by Amarnath S, Bangalore, India, 2009.
 // Updated by Harsha T, Apr 2010.
@@ -66,7 +67,6 @@ namespace MyChat
         byte[] imagePixels24;
         int sizeImg;
         int sizeImg3;
-        frmDicom mf;
 
         ImageBitsPerPixel bpp;
 
@@ -118,7 +118,7 @@ namespace MyChat
         }
 
         public void SetParameters(ref List<byte> arr, int wid, int hei, double windowWidth,
-            double windowCentre, int samplesPerPixel, bool resetScroll, frmDicom mainFrm)
+            double windowCentre, int samplesPerPixel, bool resetScroll)
         {
             if (samplesPerPixel == 1)
             {
@@ -134,8 +134,6 @@ namespace MyChat
 
                 pix8 = arr;
                 imagePixels8 = new byte[sizeImg3];
-
-                mf = mainFrm;
                 imageAvailable = true;
                 if (bmp != null)
                     bmp.Dispose();
@@ -160,7 +158,6 @@ namespace MyChat
                 pix24 = arr;
                 imagePixels24 = new byte[sizeImg3];
 
-                mf = mainFrm;
                 imageAvailable = true;
                 if (bmp != null)
                     bmp.Dispose();
@@ -194,7 +191,7 @@ namespace MyChat
         }
 
         public void SetParameters(ref List<ushort> arr, int wid, int hei, double windowWidth,
-            double windowCentre, bool resetScroll, frmDicom mainFrm)
+            double windowCentre, bool resetScroll)
         {
             bpp = ImageBitsPerPixel.Sixteen;
             imgWidth = wid;
@@ -211,7 +208,6 @@ namespace MyChat
             pix16 = arr;
             imagePixels16 = new byte[sizeImg3];
 
-            mf = mainFrm;
             imageAvailable = true;
             if (bmp != null)
                 bmp.Dispose();

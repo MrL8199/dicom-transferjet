@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using System.Linq;
+﻿using Dicom;
 using MyChat.DicomLib;
-namespace MyChat
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
+
+namespace MyChat.Views.ReadDicom
 {
-    public enum ImageBitsPerPixel { Eight, Sixteen, TwentyFour };
-    public enum ViewSettings { Zoom1_1, ZoomToFit };
-    public partial class frmDicom : Form
+    public partial class frmDicomReader : MetroFramework.Forms.MetroForm
     {
         DicomDecoder dd;
         List<byte> pixels8;
@@ -21,10 +21,13 @@ namespace MyChat
         double winCentre;
         double winWidth;
         bool signedImage;
-        int maxPixelValue; 
+        int maxPixelValue;
         int minPixelValue;
 
-        public frmDicom()
+        Dicom.DicomFile file;
+        List<string> fileTags = new List<string>();
+
+        public frmDicomReader()
         {
             InitializeComponent();
             dd = new DicomDecoder();
@@ -40,12 +43,12 @@ namespace MyChat
         private void bnOpen_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "All DICOM Files(*.*)|*.*";
+            ofd.Filter = "All DICOM Files(*.dcm)|*.dcm";
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 if (ofd.FileName.Length > 0)
                 {
-                    Cursor = Cursors.WaitCursor;
+                    //Cursor = Cursors.WaitCursor;
                     ReadAndDisplayDicomFile(ofd.FileName, ofd.SafeFileName);
                     imageOpened = true;
                     Cursor = Cursors.Default;
@@ -56,6 +59,13 @@ namespace MyChat
 
         private void ReadAndDisplayDicomFile(string fileName, string fileNameOnly)
         {
+            file = DicomFile.Open(fileName);
+            foreach (var tag in file.Dataset)
+            {
+                string str = ($"{tag}|{file.Dataset.GetValueOrDefault(tag.Tag, 0, "")}");
+                fileTags.Add(str);
+            }
+
             dd.DicomFileName = fileName;
 
             TypeOfDicomFile typeOfDicomFile = dd.typeofDicomFile;
@@ -146,7 +156,7 @@ namespace MyChat
                         winWidth, winCentre, samplesPerPixel, true);
                 }
             }
-            else 
+            else
             {
                 if (typeOfDicomFile == TypeOfDicomFile.DicomUnknownTransferSyntax)
                 {
@@ -185,60 +195,59 @@ namespace MyChat
             }
 
             List<string> lstString = dd.dicomInfo;
-            SetString(ref lstString);
+            SetString();
         }
 
         private void bnTags_Click(object sender, EventArgs e)
         {
             if (imageOpened == true)
             {
-                List<string> str = dd.dicomInfo;
-
                 DicomTagsForm dtg = new DicomTagsForm();
-                dtg.SetString(ref str);
+                dtg.SetString(ref fileTags);
                 dtg.ShowDialog();
                 imagePanelControl.Invalidate();
             }
             else
-                MessageBox.Show("Vui lòng mở file DICOM trước khi xem Tags!", "Chú Ý !!!", 
+                MessageBox.Show("Vui lòng mở file DICOM trước khi xem Tags!", "Chú Ý !!!",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-        List<string> lstStr;
-        public void SetString(ref List<string> strg)
+
+        public void SetString()
         {
-            /*
-            lstStr = strg;
-            string id, name, dob, sex, add, phone, bodypart;
-            string s4, s5, s11, s12;
+            List<string> str = fileTags;
+            string inputTag, tagDescription, value, groupTag, elementTag;
 
-            id = lstStr[37];
-            ExtractStrings(id, out s4, out s5, out s11, out s12);
-            txtID.Text = s5;
+            // Add items to the List View Control
+            for (int i = 0; i < str.Count; ++i)
+            {
+                inputTag = str[i];
+                ExtractStrings(inputTag, out tagDescription, out value, out groupTag, out elementTag);
+                if(groupTag == "0010" && elementTag == "0040")
+                {
+                    txtSex.Text = value;
+                }
+                if(groupTag == "0010" && elementTag == "0020")
+                {
+                    txtID.Text = value;
+                }
+                if(groupTag == "0010" && elementTag == "0030")
+                {
+                    txtDOB.Text = value;
+                }
+                if(groupTag == "0010" && elementTag == "2154")
+                {
+                    txtPhone.Text = value;
+                }
+                if(groupTag == "0010" && elementTag == "1040")
+                {
+                    txtAddr.Text = value;
+                }
+                if(groupTag == "0018" && elementTag == "0015")
+                {
+                    txtBodyPart.Text = value;
+                }
+            }
 
-            name = lstStr[36];
-            ExtractStrings(name, out s4, out s5, out s11, out s12);
-            txtName.Text = s5;
-
-            dob = lstStr[38];
-            ExtractStrings(dob, out s4, out s5, out s11, out s12);
-            txtDOB.Text = s5;
-
-            sex = lstStr[39];
-            ExtractStrings(sex, out s4, out s5, out s11, out s12);
-            txtSex.Text = s5;
-
-            add = lstStr[40];
-            ExtractStrings(add, out s4, out s5, out s11, out s12);
-            txtAddr.Text = s5;
-
-            phone = lstStr[41];
-            ExtractStrings(phone, out s4, out s5, out s11, out s12);
-            txtPhone.Text = s5;
-
-            bodypart = lstStr[42];
-            ExtractStrings(bodypart, out s4, out s5, out s11, out s12);
-            txtBodyPart.Text = s5;
-            */
             txtID.Enabled = false;
             txtName.Enabled = false;
             txtDOB.Enabled = false;
@@ -249,18 +258,16 @@ namespace MyChat
         }
 
 
-        void ExtractStrings(string s1, out string s4, out string s5, out string s11, out string s12)
+        void ExtractStrings(string inputTag, out string tagDescription, out string value, out string groupTag, out string elementTag)
         {
-            int ind;
-            string s2, s3;
-            ind = s1.IndexOf("//");
-            s2 = s1.Substring(0, ind);
-            s11 = s1.Substring(0, 4);
-            s12 = s1.Substring(4, 4);
-            s3 = s1.Substring(ind + 2);
-            ind = s3.IndexOf(":");
-            s4 = s3.Substring(0, ind);
-            s5 = s3.Substring(ind + 1);
+            string tag;
+            string[] str = inputTag.Split('|');
+            value = str[1];
+            tag = str[0];
+
+            groupTag = tag.Substring(1, 4);
+            elementTag = tag.Substring(6, 4);
+            tagDescription = tag.Substring(11);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -268,31 +275,6 @@ namespace MyChat
             pixels8.Clear();
             pixels16.Clear();
             if (imagePanelControl != null) imagePanelControl.Dispose();
-        }
-
-        private void btnSend_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void imagePanelControl_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-         
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -306,20 +288,10 @@ namespace MyChat
                     imagePanelControl.SaveImage(sfd.FileName);
             }
             else
-                MessageBox.Show("Load a DICOM file before saving!", "Information",
+                MessageBox.Show("Vui lòng mở file DICOM trước khi chọn tính năng này!", "Thông tin",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             imagePanelControl.Invalidate();
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label8_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

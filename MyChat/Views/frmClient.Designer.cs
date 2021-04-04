@@ -281,7 +281,7 @@
             this.KeyPreview = true;
             this.Name = "frmClient";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmMain";
+            this.Text = "DICOM Transferjet Client";
             this.Activated += new System.EventHandler(this.frmClient_Activated);
             this.Deactivate += new System.EventHandler(this.frmClient_Deactived);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmClient_FormClosing);

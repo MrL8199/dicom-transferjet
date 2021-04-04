@@ -1,4 +1,4 @@
-﻿namespace MyChat
+﻿namespace MyChat.Views
 {
     partial class frmStart
     {
@@ -31,194 +31,202 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmStart));
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnExit = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.txtServer = new System.Windows.Forms.TextBox();
-            this.btnServer = new System.Windows.Forms.Button();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.btnClient = new System.Windows.Forms.Button();
-            this.textBox_ipServer = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.btnStart = new MetroFramework.Controls.MetroTile();
+            this.clientToggle = new MetroFramework.Controls.MetroToggle();
+            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtServer = new MetroFramework.Controls.MetroTextBox();
+            this.lbl_ipServer = new MetroFramework.Controls.MetroLabel();
+            this.lblRunAsClient = new MetroFramework.Controls.MetroLabel();
+            this.lblRunAsServer = new MetroFramework.Controls.MetroLabel();
+            this.btnExit = new MetroFramework.Controls.MetroTile();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Controls.Add(this.btnExit);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Location = new System.Drawing.Point(20, 60);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(400, 50);
-            this.panel1.TabIndex = 0;
-            this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmStart_MouseDown);
-            this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.frmStart_MouseMove);
-            this.panel1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.frmStart_MouseUp);
+            this.panel1.Size = new System.Drawing.Size(760, 60);
+            this.panel1.TabIndex = 3;
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(3, -12);
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(211, 63);
+            this.pictureBox1.Size = new System.Drawing.Size(211, 60);
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
-            // btnExit
+            // btnStart
             // 
-            this.btnExit.BackColor = System.Drawing.Color.OrangeRed;
-            this.btnExit.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnExit.FlatAppearance.BorderSize = 0;
-            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExit.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.btnExit.ForeColor = System.Drawing.Color.White;
-            this.btnExit.Location = new System.Drawing.Point(350, 0);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(50, 50);
-            this.btnExit.TabIndex = 0;
-            this.btnExit.Text = "X";
-            this.btnExit.UseVisualStyleBackColor = false;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            this.btnStart.ActiveControl = null;
+            this.btnStart.Location = new System.Drawing.Point(516, 157);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(264, 73);
+            this.btnStart.TabIndex = 6;
+            this.btnStart.Text = "BẮT ĐẦU";
+            this.btnStart.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnStart.TileTextFontSize = MetroFramework.MetroTileTextSize.Tall;
+            this.btnStart.UseSelectable = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
-            // panel2
+            // clientToggle
             // 
-            this.panel2.BackColor = System.Drawing.Color.ForestGreen;
-            this.panel2.Controls.Add(this.textBox_ipServer);
-            this.panel2.Controls.Add(this.btnServer);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 165);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(400, 115);
-            this.panel2.TabIndex = 1;
+            this.clientToggle.AutoSize = true;
+            this.clientToggle.Checked = true;
+            this.clientToggle.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.clientToggle.Location = new System.Drawing.Point(18, 69);
+            this.clientToggle.Name = "clientToggle";
+            this.clientToggle.Size = new System.Drawing.Size(80, 17);
+            this.clientToggle.TabIndex = 7;
+            this.clientToggle.Text = "On";
+            this.clientToggle.UseSelectable = true;
+            this.clientToggle.CheckedChanged += new System.EventHandler(this.clientToggle_CheckedChanged);
+            // 
+            // metroLabel1
+            // 
+            this.metroLabel1.AutoSize = true;
+            this.metroLabel1.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel1.Location = new System.Drawing.Point(18, 30);
+            this.metroLabel1.Name = "metroLabel1";
+            this.metroLabel1.Size = new System.Drawing.Size(178, 25);
+            this.metroLabel1.TabIndex = 8;
+            this.metroLabel1.Text = "Khởi chạy như client ?";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.txtServer);
+            this.groupBox1.Controls.Add(this.metroLabel1);
+            this.groupBox1.Controls.Add(this.clientToggle);
+            this.groupBox1.Controls.Add(this.lbl_ipServer);
+            this.groupBox1.Controls.Add(this.lblRunAsClient);
+            this.groupBox1.Controls.Add(this.lblRunAsServer);
+            this.groupBox1.Location = new System.Drawing.Point(23, 153);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(340, 180);
+            this.groupBox1.TabIndex = 9;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Cấu hình";
             // 
             // txtServer
             // 
-            this.txtServer.AccessibleDescription = "sdcds";
-            this.txtServer.AccessibleName = "df";
-            this.txtServer.BackColor = System.Drawing.Color.NavajoWhite;
-            this.txtServer.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtServer.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.txtServer.Location = new System.Drawing.Point(209, 7);
-            this.txtServer.MaxLength = 15;
+            // 
+            // 
+            // 
+            this.txtServer.CustomButton.Image = null;
+            this.txtServer.CustomButton.Location = new System.Drawing.Point(142, 1);
+            this.txtServer.CustomButton.Name = "";
+            this.txtServer.CustomButton.Size = new System.Drawing.Size(23, 23);
+            this.txtServer.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtServer.CustomButton.TabIndex = 1;
+            this.txtServer.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.txtServer.CustomButton.UseSelectable = true;
+            this.txtServer.CustomButton.Visible = false;
+            this.txtServer.FontSize = MetroFramework.MetroTextBoxSize.Medium;
+            this.txtServer.FontWeight = MetroFramework.MetroTextBoxWeight.Light;
+            this.txtServer.Lines = new string[] {
+        "127.0.0.1"};
+            this.txtServer.Location = new System.Drawing.Point(155, 108);
+            this.txtServer.MaxLength = 32767;
             this.txtServer.Name = "txtServer";
-            this.txtServer.Size = new System.Drawing.Size(130, 22);
-            this.txtServer.TabIndex = 1;
+            this.txtServer.PasswordChar = '\0';
+            this.txtServer.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.txtServer.SelectedText = "";
+            this.txtServer.SelectionLength = 0;
+            this.txtServer.SelectionStart = 0;
+            this.txtServer.ShortcutsEnabled = true;
+            this.txtServer.Size = new System.Drawing.Size(166, 25);
+            this.txtServer.TabIndex = 9;
             this.txtServer.Text = "127.0.0.1";
-            this.txtServer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtServer.UseSelectable = true;
+            this.txtServer.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.txtServer.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
-            // btnServer
+            // lbl_ipServer
             // 
-            this.btnServer.AutoEllipsis = true;
-            this.btnServer.BackColor = System.Drawing.Color.SkyBlue;
-            this.btnServer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnServer.FlatAppearance.BorderSize = 0;
-            this.btnServer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnServer.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnServer.ForeColor = System.Drawing.Color.White;
-            this.btnServer.Location = new System.Drawing.Point(0, 0);
-            this.btnServer.Name = "btnServer";
-            this.btnServer.Size = new System.Drawing.Size(400, 115);
-            this.btnServer.TabIndex = 0;
-            this.btnServer.Text = "KHỞI CHẠY NHƯ SERVER";
-            this.btnServer.UseVisualStyleBackColor = false;
-            this.btnServer.Click += new System.EventHandler(this.btnServer_Click);
+            this.lbl_ipServer.AutoSize = true;
+            this.lbl_ipServer.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.lbl_ipServer.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.lbl_ipServer.Location = new System.Drawing.Point(165, 108);
+            this.lbl_ipServer.Name = "lbl_ipServer";
+            this.lbl_ipServer.Size = new System.Drawing.Size(81, 25);
+            this.lbl_ipServer.TabIndex = 8;
+            this.lbl_ipServer.Text = "IP Server";
+            this.lbl_ipServer.Visible = false;
             // 
-            // panel3
+            // lblRunAsClient
             // 
-            this.panel3.BackColor = System.Drawing.Color.DarkOrange;
-            this.panel3.Controls.Add(this.label1);
-            this.panel3.Controls.Add(this.txtServer);
-            this.panel3.Controls.Add(this.btnClient);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(0, 50);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(400, 115);
-            this.panel3.TabIndex = 2;
+            this.lblRunAsClient.AutoSize = true;
+            this.lblRunAsClient.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.lblRunAsClient.Location = new System.Drawing.Point(18, 108);
+            this.lblRunAsClient.Name = "lblRunAsClient";
+            this.lblRunAsClient.Size = new System.Drawing.Size(131, 25);
+            this.lblRunAsClient.TabIndex = 8;
+            this.lblRunAsClient.Text = "Nhập IP Server:";
             // 
-            // btnClient
+            // lblRunAsServer
             // 
-            this.btnClient.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.btnClient.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnClient.FlatAppearance.BorderSize = 0;
-            this.btnClient.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClient.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClient.ForeColor = System.Drawing.Color.White;
-            this.btnClient.Location = new System.Drawing.Point(0, 0);
-            this.btnClient.Name = "btnClient";
-            this.btnClient.Size = new System.Drawing.Size(400, 115);
-            this.btnClient.TabIndex = 0;
-            this.btnClient.Text = "KHỞI CHẠY NHƯ CLIENT";
-            this.btnClient.UseVisualStyleBackColor = false;
-            this.btnClient.Click += new System.EventHandler(this.btnClient_Click);
+            this.lblRunAsServer.AutoSize = true;
+            this.lblRunAsServer.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.lblRunAsServer.Location = new System.Drawing.Point(18, 108);
+            this.lblRunAsServer.Name = "lblRunAsServer";
+            this.lblRunAsServer.Size = new System.Drawing.Size(141, 25);
+            this.lblRunAsServer.TabIndex = 8;
+            this.lblRunAsServer.Text = "Địa chỉ IP Server:";
+            this.lblRunAsServer.Visible = false;
             // 
-            // textBox_ipServer
+            // btnExit
             // 
-            this.textBox_ipServer.AccessibleDescription = "sdcds";
-            this.textBox_ipServer.AccessibleName = "df";
-            this.textBox_ipServer.BackColor = System.Drawing.Color.NavajoWhite;
-            this.textBox_ipServer.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox_ipServer.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.textBox_ipServer.Location = new System.Drawing.Point(133, 6);
-            this.textBox_ipServer.MaxLength = 15;
-            this.textBox_ipServer.Name = "textBox_ipServer";
-            this.textBox_ipServer.Size = new System.Drawing.Size(130, 22);
-            this.textBox_ipServer.TabIndex = 2;
-            this.textBox_ipServer.Text = "127.0.0.1";
-            this.textBox_ipServer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.NavajoWhite;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(73, 8);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(121, 21);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Nhập IP Server :";
+            this.btnExit.ActiveControl = null;
+            this.btnExit.Location = new System.Drawing.Point(516, 260);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(264, 73);
+            this.btnExit.TabIndex = 6;
+            this.btnExit.Text = "THOÁT";
+            this.btnExit.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnExit.TileTextFontSize = MetroFramework.MetroTileTextSize.Tall;
+            this.btnExit.UseSelectable = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // frmStart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Gray;
-            this.ClientSize = new System.Drawing.Size(400, 280);
-            this.Controls.Add(this.panel3);
-            this.Controls.Add(this.panel2);
+            this.ClientSize = new System.Drawing.Size(800, 390);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.btnExit);
+            this.Controls.Add(this.btnStart);
             this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "frmStart";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MYCHAT";
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmStart_MouseDown);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.frmStart_MouseMove);
-            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.frmStart_MouseUp);
+            this.Text = "DICOM Transferjet";
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button btnServer;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Button btnClient;
-        private System.Windows.Forms.Button btnExit;
-        private System.Windows.Forms.TextBox txtServer;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TextBox textBox_ipServer;
-        private System.Windows.Forms.Label label1;
+        private MetroFramework.Controls.MetroTile btnStart;
+        private MetroFramework.Controls.MetroToggle clientToggle;
+        private MetroFramework.Controls.MetroLabel metroLabel1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private MetroFramework.Controls.MetroTextBox txtServer;
+        private MetroFramework.Controls.MetroLabel lblRunAsClient;
+        private MetroFramework.Controls.MetroTile btnExit;
+        private MetroFramework.Controls.MetroLabel lbl_ipServer;
+        private MetroFramework.Controls.MetroLabel lblRunAsServer;
     }
 }

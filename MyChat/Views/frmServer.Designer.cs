@@ -288,7 +288,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmServer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmMain";
+            this.Text = "DICOM Transferjet Server";
             this.toolTip1.SetToolTip(this, "Danh sách các client đã kết nối");
             this.Activated += new System.EventHandler(this.frmServer_Activated);
             this.Deactivate += new System.EventHandler(this.frmServer_Deactivate);

@@ -21,18 +21,18 @@ namespace MyChat
         public void SetString(ref List<string> strg)
         {
             str = strg;
-            string s1, s4, s5, s11, s12;
+            string inputTag, tagDescription, value, groupTag, elementTag;
 
             // Add items to the List View Control
             for (int i = 0; i < str.Count; ++i)
             {
-                s1 = str[i];
-                ExtractStrings(s1, out s4, out s5, out s11, out s12);
+                inputTag = str[i];
+                ExtractStrings(inputTag, out tagDescription, out value, out groupTag, out elementTag);
 
-                ListViewItem lvi = new ListViewItem(s11);
-                lvi.SubItems.Add(s12);
-                lvi.SubItems.Add(s4);
-                lvi.SubItems.Add(s5);
+                ListViewItem lvi = new ListViewItem(groupTag);
+                lvi.SubItems.Add(elementTag);
+                lvi.SubItems.Add(tagDescription);
+                lvi.SubItems.Add(value);
                 listView.Items.Add(lvi);
             }
         }
@@ -57,18 +57,21 @@ namespace MyChat
         }
 
         // This method was extracted using the Refactoring facility in Visual Studio
-        void ExtractStrings(string s1, out string s4, out string s5, out string s11, out string s12)
+        void ExtractStrings(string inputTag, out string tagDescription, out string value, out string groupTag, out string elementTag)
         {
-            int ind;
-            string s2, s3;
-            ind = s1.IndexOf("//");
-            s2 = s1.Substring(0, ind);
-            s11 = s1.Substring(0, 4);
-            s12 = s1.Substring(4, 4);
-            s3 = s1.Substring(ind + 2);
-            ind = s3.IndexOf(":");
-            s4 = s3.Substring(0, ind);
-            s5 = s3.Substring(ind + 1);
+            //(0010,0010) PN Patient's Name|Anonymized
+            // split -> ["(0010,0010) PN Patient's Name", "Anonymized"]
+            // grouptag = substring(0, 10)
+            // description = 
+
+            string tag;
+            string[] str = inputTag.Split('|');
+            value = str[1];
+            tag = str[0];
+
+            groupTag = tag.Substring(1, 4);
+            elementTag = tag.Substring(6, 4);
+            tagDescription = tag.Substring(11);
         }
 
         private void listView_SelectedIndexChanged(object sender, System.EventArgs e)
