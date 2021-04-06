@@ -15,15 +15,6 @@ namespace MyChat.Views
 {
     public partial class frmStart : MetroFramework.Forms.MetroForm
     {
-
-        #region Khai Báo biến
-        /// <summary>
-        /// Di chuyển form
-        /// </summary>
-        private bool drag = false;
-        private Point dragCursor, dragForm;
-        #endregion
-
         public frmStart()
         {
             InitializeComponent();
@@ -71,6 +62,7 @@ namespace MyChat.Views
 
         private void btnStart_Click(object sender, EventArgs e)
         {
+            metroProgressSpinner.Visible = true;
             if (clientToggle.Checked)
             {
                 // Client
@@ -80,17 +72,18 @@ namespace MyChat.Views
 
                 try
                 {
+
                     Setting.TcpServer = new TcpClient(Setting.Server, Setting.Port);
                 }
                 catch
                 {
                     MessageBox.Show("Không thể kết nối tới server");
+                    metroProgressSpinner.Visible = false;
                     return;
                 }
             }
             else
             {
-
                 Setting.Mode = Setting.Modes.Server;
                 // Start server
             }

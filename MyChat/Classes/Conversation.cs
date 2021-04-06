@@ -63,7 +63,7 @@ namespace MyChat
                 string start = @"<!DOCTYPE html><html><head><title>Client</title><style type='text/css'>
 	                         body{font-family:  'Segoe UI', tahoma, sans-serif;}
 	                        .message{padding: 6px;margin: 4px;text-align: left;cursor:default;word-wrap:break-word;}
-	                        .mine{margin-left: 100px;background: DarkOrange;}
+	                        .mine{margin-left: 100px;background: DodgerBlue;}
 	                        .remote{margin-right: 100px;background: #999;}
                             </style>
                             <script language='javascript'>
@@ -71,7 +71,7 @@ namespace MyChat
                                 function toBottom(){ window.scrollTo(0, document.body.scrollHeight);}
                             </script></head><body>";
                 if (Setting.Mode == Setting.Modes.Server)
-                    start = start.Replace("DarkOrange", "ForestGreen");
+                    start = start.Replace("DodgerBlue", "MediumSeaGreen");
                 string end = @"</body></html>";
                 string conver = "";
                 foreach (var mes in Messages)
@@ -81,8 +81,8 @@ namespace MyChat
                     else
                     {
                         conver += "<div class='message remote' title='" + mes.Sender.Address + ":" + mes.Sender.Port + " " + " " + mes.Time.ToString("HH:mm:ss dd/MM/yy") + "'";
-                        //if (mes.Sender.Name != "0")
-                        //    conver += " style='background:" + GetHTMLColor(mes.Sender.Color) + "'";
+                        if (mes.Sender.Color.Name != "0")
+                            conver += " style='background:" + GetHTMLColor(mes.Sender.Color) + "'";
                         conver += ">" + (Senders.Count > 2 ? "<b>" + mes.Sender.NickName + "</b>: " : "") + mes.Content + "</div>";
                     }
                 }

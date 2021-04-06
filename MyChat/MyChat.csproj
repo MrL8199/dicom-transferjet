@@ -82,11 +82,28 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmClient1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmClient1.Designer.cs">
+      <DependentUpon>frmClient1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\frmOpenFile.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\frmOpenFile.Designer.cs">
       <DependentUpon>frmOpenFile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmRename.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmRename.Designer.cs">
+      <DependentUpon>frmRename.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\frmServer.cs">
       <SubType>Form</SubType>
@@ -104,6 +121,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Classes\Sender.cs" />
+    <Compile Include="Views\frmServer1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmServer1.Designer.cs">
+      <DependentUpon>frmServer1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\frmStart.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,6 +163,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Views\frmClient1.resx">
+      <DependentUpon>frmClient1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\frmOpenFile.resx">
       <DependentUpon>frmOpenFile.cs</DependentUpon>
     </EmbeddedResource>
@@ -148,11 +174,17 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmRename.resx">
+      <DependentUpon>frmRename.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\frmServer.resx">
       <DependentUpon>frmServer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\frmClient.resx">
       <DependentUpon>frmClient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmServer1.resx">
+      <DependentUpon>frmServer1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\frmStart.resx">
       <DependentUpon>frmStart.cs</DependentUpon>
@@ -171,6 +203,16 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Resources\1459189587_picture-01.png" />
+    <None Include="Resources\1459189602_send-01.png" />
+    <None Include="Resources\1459234947_message-01.png" />
+    <None Include="Resources\1459841495_Attach.png" />
+    <None Include="Resources\1468773745_icon-plus.png" />
+    <None Include="Resources\ic_build_white_24dp_1x.png" />
     <Content Include="Views\ReadDicom\DicomImageReader.csproj" />
     <Content Include="Views\ReadDicom\DicomImageViewer.csproj" />
     <Content Include="Views\ReadDicom\DicomImageViewer.csproj.user" />

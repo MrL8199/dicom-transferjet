@@ -14,7 +14,7 @@ namespace MyChat
         private string _nick = "";
         public string Address { get; set; }
         public int Port { get; set; }
-        //public Color Color { get; set; }
+        public Color Color { get; set; }
         public TcpClient Tcp { get; set; }
         public string NickName
         {
@@ -37,7 +37,7 @@ namespace MyChat
                 if (Address != "Me")
                 {
                     _button.Text = NickName;
-                    //_button.BackColor = Color;
+                    _button.BackColor = Color;
                     return _button;
                 }
                 else
@@ -50,7 +50,7 @@ namespace MyChat
         public Sender()
         {
             Random ran = new Random();
-            //Color = Color.FromArgb(ran.Next(100, 240), ran.Next(100, 240), ran.Next(100, 240));
+            Color = Color.FromArgb(ran.Next(100, 240), ran.Next(100, 240), ran.Next(100, 240));
 
             _button = new Button();
             _button.Dock = DockStyle.Top;
@@ -60,29 +60,29 @@ namespace MyChat
             _button.FlatAppearance.BorderSize = 0;
             _button.Padding = new Padding(0);
             _button.UseVisualStyleBackColor = false;
-            //_button.MouseClick += _button_Click;
+            _button.MouseClick += _button_Click;
         }
 
-        //void _button_Click(object sender, MouseEventArgs e)
-        //{
-        //    frmRename frm = new frmRename(NickName);
-        //    if (frm.ShowDialog() == DialogResult.OK)
-        //    {
-        //        Color = frm.Color;
-        //        NickName = frm.NickName;
-        //        _button.Text = NickName;
-        //        _button.BackColor = Color;
+        void _button_Click(object sender, MouseEventArgs e)
+        {
+            frmRename frm = new frmRename(NickName, Color);
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                Color = frm.Color;
+                NickName = frm.NickName;
+                _button.Text = NickName;
+                _button.BackColor = Color;
 
-        //        if (call != null)
-        //            call();         // Gọi hàm đích của delegate
-        //    }
-        //}
+                if (call != null)
+                    call();         // Gọi hàm đích của delegate
+            }
+        }
 
         public static Sender Me
         {
             get
             {
-                return new Sender() { Address = "Me", Port = Setting.Port, NickName = "Me", Tcp = null };
+                return new Sender() { Address = "Me", Port = Setting.Port, NickName = "Me", Tcp = null, Color = Color.FromName("0") };
             }
         }
 
@@ -99,13 +99,12 @@ namespace MyChat
                 object.ReferenceEquals(this.Port, other.Port) ||
                 this.Port != null &&
                 this.Port.Equals(other.Port)
-            )
-            //(
-            //    object.ReferenceEquals(this.Color, other.Color) ||
-            //    this.Color != null &&
-            //    this.Color.Equals(other.Color)
-            //) 
-            &&
+            ) &&
+            (
+                object.ReferenceEquals(this.Color, other.Color) ||
+                this.Color != null &&
+                this.Color.Equals(other.Color)
+            ) &&
             (
                 object.ReferenceEquals(this.Tcp, other.Tcp) ||
                 this.Tcp != null &&

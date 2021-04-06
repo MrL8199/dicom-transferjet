@@ -40,8 +40,10 @@
             this.lblRunAsClient = new MetroFramework.Controls.MetroLabel();
             this.lblRunAsServer = new MetroFramework.Controls.MetroLabel();
             this.btnExit = new MetroFramework.Controls.MetroTile();
+            this.metroProgressSpinner = new MetroFramework.Controls.MetroProgressSpinner();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.btnStart.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,6 +69,7 @@
             // btnStart
             // 
             this.btnStart.ActiveControl = null;
+            this.btnStart.Controls.Add(this.metroProgressSpinner);
             this.btnStart.Location = new System.Drawing.Point(516, 157);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(264, 73);
@@ -195,6 +198,16 @@
             this.btnExit.UseSelectable = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
+            // metroProgressSpinner
+            // 
+            this.metroProgressSpinner.Location = new System.Drawing.Point(197, 10);
+            this.metroProgressSpinner.Maximum = 100;
+            this.metroProgressSpinner.Name = "metroProgressSpinner";
+            this.metroProgressSpinner.Size = new System.Drawing.Size(55, 55);
+            this.metroProgressSpinner.TabIndex = 10;
+            this.metroProgressSpinner.UseSelectable = true;
+            this.metroProgressSpinner.Visible = false;
+            // 
             // frmStart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -210,6 +223,7 @@
             this.Text = "DICOM Transferjet";
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.btnStart.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -228,5 +242,6 @@
         private MetroFramework.Controls.MetroTile btnExit;
         private MetroFramework.Controls.MetroLabel lbl_ipServer;
         private MetroFramework.Controls.MetroLabel lblRunAsServer;
+        private MetroFramework.Controls.MetroProgressSpinner metroProgressSpinner;
     }
 }

@@ -35,9 +35,9 @@ namespace MyChat
             if (frm.ShowDialog() == DialogResult.OK)
             {
                 if (Setting.Mode == Setting.Modes.Client)
-                    Application.Run(new frmClient());
+                    Application.Run(new frmClient1());
                 else
-                    Application.Run(new frmServer());
+                    Application.Run(new frmServer1());
             }
             else
                 Application.Exit();
