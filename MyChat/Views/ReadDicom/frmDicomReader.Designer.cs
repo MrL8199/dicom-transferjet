@@ -49,8 +49,9 @@
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.label8 = new MetroFramework.Controls.MetroLabel();
             this.label_size = new MetroFramework.Controls.MetroLabel();
-            this.imagePanelControl = new MyChat.ImagePanelControl();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // bnOpen
@@ -408,22 +409,23 @@
             this.label_size.Text = "size";
             this.label_size.Visible = false;
             // 
-            // imagePanelControl
+            // pictureBox1
             // 
-            this.imagePanelControl.BackColor = System.Drawing.SystemColors.Control;
-            this.imagePanelControl.Location = new System.Drawing.Point(287, 63);
-            this.imagePanelControl.Name = "imagePanelControl";
-            this.imagePanelControl.Size = new System.Drawing.Size(700, 466);
-            this.imagePanelControl.TabIndex = 2;
+            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.pictureBox1.Location = new System.Drawing.Point(287, 63);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(700, 466);
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
             // 
             // frmDicomReader
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1010, 552);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label_size);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.imagePanelControl);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.bnTags);
@@ -434,6 +436,7 @@
             this.Text = "Trình Đọc File DICOM";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -445,7 +448,6 @@
         private MetroFramework.Controls.MetroButton bnTags;
         private MetroFramework.Controls.MetroButton button1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private ImagePanelControl imagePanelControl;
         private MetroFramework.Controls.MetroLabel label8;
         private MetroFramework.Controls.MetroLabel label_size;
         private MetroFramework.Controls.MetroLabel metroLabel7;
@@ -462,5 +464,6 @@
         private MetroFramework.Controls.MetroTextBox txtDOB;
         private MetroFramework.Controls.MetroTextBox txtName;
         private MetroFramework.Controls.MetroTextBox txtID;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

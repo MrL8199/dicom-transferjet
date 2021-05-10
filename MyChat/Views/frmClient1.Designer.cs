@@ -36,8 +36,8 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel4 = new System.Windows.Forms.Panel();
             this.txtMessage = new System.Windows.Forms.TextBox();
-            this.btnSend = new System.Windows.Forms.Button();
             this.btnImage = new System.Windows.Forms.Button();
+            this.btnSend = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.webMain = new System.Windows.Forms.WebBrowser();
             this.pnlFile.SuspendLayout();
@@ -76,7 +76,7 @@
             // 
             // panel4
             // 
-            this.panel4.BackColor = System.Drawing.SystemColors.Window;
+            this.panel4.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.panel4.Controls.Add(this.txtMessage);
             this.panel4.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.panel4.Location = new System.Drawing.Point(15, 15);
@@ -88,17 +88,34 @@
             // 
             // txtMessage
             // 
+            this.txtMessage.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.txtMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtMessage.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txtMessage.Location = new System.Drawing.Point(5, 11);
             this.txtMessage.MaxLength = 500;
             this.txtMessage.Name = "txtMessage";
             this.txtMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtMessage.Size = new System.Drawing.Size(349, 18);
+            this.txtMessage.Size = new System.Drawing.Size(350, 18);
             this.txtMessage.TabIndex = 0;
             this.toolTip1.SetToolTip(this.txtMessage, "Nhập tin nhắn...");
             this.txtMessage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMessage_KeyDown);
             this.txtMessage.Leave += new System.EventHandler(this.txtMessage_Leave);
+            // 
+            // btnImage
+            // 
+            this.btnImage.BackColor = System.Drawing.Color.SkyBlue;
+            this.btnImage.FlatAppearance.BorderSize = 0;
+            this.btnImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnImage.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.btnImage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.btnImage.Image = global::MyChat.Properties.Resources._1459841495_Attach;
+            this.btnImage.Location = new System.Drawing.Point(375, 15);
+            this.btnImage.Name = "btnImage";
+            this.btnImage.Size = new System.Drawing.Size(40, 40);
+            this.btnImage.TabIndex = 2;
+            this.toolTip1.SetToolTip(this.btnImage, "Gửi tập tin đính kèm");
+            this.btnImage.UseVisualStyleBackColor = false;
+            this.btnImage.Click += new System.EventHandler(this.btnImage_Click);
             // 
             // btnSend
             // 
@@ -117,22 +134,6 @@
             this.toolTip1.SetToolTip(this.btnSend, "Gửi tin nhắn");
             this.btnSend.UseVisualStyleBackColor = false;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
-            // 
-            // btnImage
-            // 
-            this.btnImage.BackColor = System.Drawing.Color.SkyBlue;
-            this.btnImage.FlatAppearance.BorderSize = 0;
-            this.btnImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnImage.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.btnImage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.btnImage.Image = global::MyChat.Properties.Resources._1459841495_Attach;
-            this.btnImage.Location = new System.Drawing.Point(375, 15);
-            this.btnImage.Name = "btnImage";
-            this.btnImage.Size = new System.Drawing.Size(40, 40);
-            this.btnImage.TabIndex = 2;
-            this.toolTip1.SetToolTip(this.btnImage, "Gửi tập tin đính kèm");
-            this.btnImage.UseVisualStyleBackColor = false;
-            this.btnImage.Click += new System.EventHandler(this.btnImage_Click);
             // 
             // panel2
             // 

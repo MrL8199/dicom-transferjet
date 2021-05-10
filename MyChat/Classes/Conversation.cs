@@ -60,9 +60,9 @@ namespace MyChat
         {
             get
             {
-                string start = @"<!DOCTYPE html><html><head><title>Client</title><style type='text/css'>
+                string start = @"<!DOCTYPE html><html><head><meta http-equiv='X-UA-Compatible' content='IE=edge' /><title>Client</title><style type='text/css'>
 	                         body{font-family:  'Segoe UI', tahoma, sans-serif;}
-	                        .message{padding: 6px;margin: 4px;text-align: left;cursor:default;word-wrap:break-word;}
+	                        .message{border-radius: 25px;padding: 10px;margin: 4px;text-align: left;cursor:default;word-wrap:break-word;}
 	                        .mine{margin-left: 100px;background: DodgerBlue;}
 	                        .remote{margin-right: 100px;background: #999;}
                             </style>

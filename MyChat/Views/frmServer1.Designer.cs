@@ -159,9 +159,9 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.label1.Location = new System.Drawing.Point(26, 129);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(118, 42);
+            this.label1.Size = new System.Drawing.Size(117, 42);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Đang chờ client\r\nkết nối tới...";
+            this.label1.Text = "Không có client\r\nđang kết nối...";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pnlFile

@@ -1,7 +1,9 @@
-﻿using System;
+﻿using MyChat.Views.ReadDicom;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -323,36 +325,6 @@ namespace MyChat.Views
         }
         #endregion
 
-        #region Move form
-        private void frmClient_MouseDown(object sender, MouseEventArgs e)
-        {
-            drag = true;
-            dragCursor = Cursor.Position;
-            dragForm = this.Location;
-        }
-
-        private void frmClient_MouseMove(object sender, MouseEventArgs e)
-        {
-            int wid = SystemInformation.VirtualScreen.Width;
-            int hei = SystemInformation.VirtualScreen.Height;
-            if (drag)
-            {
-                Point change = Point.Subtract(Cursor.Position, new Size(dragCursor));
-                Point newpos = Point.Add(dragForm, new Size(change));
-                if (newpos.X < 0) newpos.X = 0;
-                if (newpos.Y < 0) newpos.Y = 0;
-                if (newpos.X + this.Width > wid) newpos.X = wid - this.Width;
-                if (newpos.Y + this.Height > hei) newpos.Y = hei - this.Height;
-                this.Location = newpos;
-            }
-        }
-
-        private void frmClient_MouseUp(object sender, MouseEventArgs e)
-        {
-            drag = false;
-        }
-        #endregion
-
         #region Controls
         private void btnExit_Click(object sender, EventArgs e)
         {
@@ -396,9 +368,30 @@ namespace MyChat.Views
             e.Cancel = true;
             if (e.Url.ToString() != "about:blank")
             {
+                string Address = "";
                 string url = e.Url.PathAndQuery;
-                frmOpenFile frm = new frmOpenFile(url);
-                frm.ShowDialog();
+                Address = url.Replace("(~*)", ":");
+                Uri uri = new UriBuilder() { Scheme = Uri.UriSchemeFile, Host = "", Path = Address }.Uri;
+                bool isDicomFile = Path.GetFileName(uri.LocalPath).EndsWith("dcm");
+                Address = uri.LocalPath;
+                if (File.Exists(Address))
+                    try
+                    {
+                        if (isDicomFile)
+                        {
+                            frmDicomReader frm = new frmDicomReader(Address);
+                            frm.ShowDialog();
+                        }
+
+                        else
+                            Process.Start("explorer.exe", " /select, " + Address);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Không thể mở file");
+                    }
+                else
+                    MessageBox.Show("Tập tin không tồn tại");
             }
         }
 

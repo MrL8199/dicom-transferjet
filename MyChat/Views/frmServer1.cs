@@ -430,9 +430,30 @@ namespace MyChat.Views
             e.Cancel = true;
             if (e.Url.ToString() != "about:blank")
             {
+                string Address = "";
                 string url = e.Url.PathAndQuery;
-                frmOpenFile frm = new frmOpenFile(url);
-                frm.ShowDialog();
+                Address = url.Replace("(~*)", ":");
+                Uri uri = new UriBuilder() { Scheme = Uri.UriSchemeFile, Host = "", Path = Address }.Uri;
+                bool isDicomFile = Path.GetFileName(uri.LocalPath).EndsWith("dcm");
+                Address = uri.LocalPath;
+                if (File.Exists(Address))
+                    try
+                    {
+                        if (isDicomFile)
+                        {
+                            frmDicomReader frm = new frmDicomReader(Address);
+                            frm.ShowDialog();
+                        }
+
+                        else
+                            Process.Start("explorer.exe", " /select, " + Address);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Không thể mở file");
+                    }
+                else
+                    MessageBox.Show("Tập tin không tồn tại");
             }
         }
 

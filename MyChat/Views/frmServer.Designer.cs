@@ -230,7 +230,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(118, 42);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Đang chờ client\r\nkết nối tới...";
+            this.label1.Text = "Không có client\nđang kết nối...";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pnlFile
