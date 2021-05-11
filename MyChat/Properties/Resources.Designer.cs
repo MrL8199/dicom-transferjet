@@ -113,9 +113,39 @@ namespace MyChat.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap add_client1 {
+            get {
+                object obj = ResourceManager.GetObject("add_client1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap attachment {
+            get {
+                object obj = ResourceManager.GetObject("attachment", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ic_build_white_24dp_1x {
             get {
                 object obj = ResourceManager.GetObject("ic_build_white_24dp_1x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap telegram_logo_951_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("telegram-logo-951-32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

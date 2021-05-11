@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -317,9 +318,21 @@ namespace MyChat.Views
         #endregion
 
         #region Forms
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn(
+            int nLeftRect,
+            int nTopRect,
+            int nRightRect,
+            int nBottomRect,
+            int nWidthEllipse,
+            int nHeightEllipse
+        
+        );
         public frmServer1()
         {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 15, 15));
             this.Padding = new Padding(1);
 
             tcpListen = new TcpListener(IPAddress.Any, Setting.Port);
@@ -469,5 +482,12 @@ namespace MyChat.Views
                 btnSend.PerformClick();
         }
         #endregion
+
+        private void btnAddConnect_Click(object sender, EventArgs e)
+        {
+            // Show form nhập IP & QR code
+            frmScan frm = new frmScan();
+            frm.ShowDialog();
+        }
     }
 }
