@@ -113,6 +113,16 @@ namespace MyChat.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap add_client_hover {
+            get {
+                object obj = ResourceManager.GetObject("add_client_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap add_client1 {
             get {
                 object obj = ResourceManager.GetObject("add_client1", resourceCulture);
@@ -123,9 +133,39 @@ namespace MyChat.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap attachment {
+        internal static System.Drawing.Bitmap attachment_hover1 {
             get {
-                object obj = ResourceManager.GetObject("attachment", resourceCulture);
+                object obj = ResourceManager.GetObject("attachment_hover1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap attachment2 {
+            get {
+                object obj = ResourceManager.GetObject("attachment2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap humburger_menu_no_hover {
+            get {
+                object obj = ResourceManager.GetObject("humburger_menu_no_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap humburger_menu64 {
+            get {
+                object obj = ResourceManager.GetObject("humburger_menu64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,9 +183,19 @@ namespace MyChat.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap telegram_logo_951_32x32 {
+        internal static System.Drawing.Bitmap send_btn {
             get {
-                object obj = ResourceManager.GetObject("telegram-logo-951-32x32", resourceCulture);
+                object obj = ResourceManager.GetObject("send_btn", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap send_btn_no_hover1 {
+            get {
+                object obj = ResourceManager.GetObject("send_btn_no_hover1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

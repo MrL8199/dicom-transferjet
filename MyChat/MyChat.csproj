@@ -80,6 +80,7 @@
     <Reference Include="MetroFramework.Fonts, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
       <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.Fonts.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -114,11 +115,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Views\frmClient1.cs">
+    <Compile Include="Views\frmClient.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\frmClient1.Designer.cs">
-      <DependentUpon>frmClient1.cs</DependentUpon>
+    <Compile Include="Views\frmClient.Designer.cs">
+      <DependentUpon>frmClient.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\frmOpenFile.cs">
       <SubType>Form</SubType>
@@ -138,33 +139,24 @@
     <Compile Include="Views\frmScan.Designer.cs">
       <DependentUpon>frmScan.cs</DependentUpon>
     </Compile>
+    <Compile Include="Classes\Message.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Classes\Sender.cs" />
     <Compile Include="Views\frmServer.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\frmServer.Designer.cs">
       <DependentUpon>frmServer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\frmClient.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\frmClient.Designer.cs">
-      <DependentUpon>frmClient.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Classes\Message.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Classes\Sender.cs" />
-    <Compile Include="Views\frmServer1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\frmServer1.Designer.cs">
-      <DependentUpon>frmServer1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\frmStart.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\frmStart.Designer.cs">
       <DependentUpon>frmStart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MaskedDialog.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\ReadDicom\DicomTagsForm.cs">
       <SubType>Form</SubType>
@@ -178,32 +170,14 @@
     <Compile Include="Views\ReadDicom\frmDicomReader.Designer.cs">
       <DependentUpon>frmDicomReader.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\ReadDicom\ImagePanelControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\ReadDicom\ImagePanelControl.designer.cs">
-      <DependentUpon>ImagePanelControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ReadDicom\frmDicom.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\ReadDicom\frmDicom.designer.cs">
-      <DependentUpon>frmDicom.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Views\SPanel.Designer.cs">
-      <DependentUpon>SPanel.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\frmClient1.resx">
-      <DependentUpon>frmClient1.cs</DependentUpon>
+    <EmbeddedResource Include="Views\frmClient.resx">
+      <DependentUpon>frmClient.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\frmOpenFile.resx">
       <DependentUpon>frmOpenFile.cs</DependentUpon>
@@ -222,12 +196,6 @@
     <EmbeddedResource Include="Views\frmServer.resx">
       <DependentUpon>frmServer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\frmClient.resx">
-      <DependentUpon>frmClient.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\frmServer1.resx">
-      <DependentUpon>frmServer1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\frmStart.resx">
       <DependentUpon>frmStart.cs</DependentUpon>
     </EmbeddedResource>
@@ -236,12 +204,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ReadDicom\frmDicomReader.resx">
       <DependentUpon>frmDicomReader.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\ReadDicom\ImagePanelControl.resx">
-      <DependentUpon>ImagePanelControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\ReadDicom\frmDicom.resx">
-      <DependentUpon>frmDicom.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -255,9 +217,14 @@
     <None Include="Resources\1459841495_Attach.png" />
     <None Include="Resources\1468773745_icon-plus.png" />
     <None Include="Resources\ic_build_white_24dp_1x.png" />
-    <None Include="Resources\telegram-logo-951-32x32.ico" />
-    <None Include="Resources\attachment.png" />
     <None Include="Resources\add_client1.png" />
+    <None Include="Resources\humburger_menu64.png" />
+    <None Include="Resources\humburger_menu_no_hover.png" />
+    <None Include="Resources\add_client_hover.png" />
+    <None Include="Resources\attachment_hover1.png" />
+    <None Include="Resources\attachment2.png" />
+    <None Include="Resources\send_btn_no_hover1.png" />
+    <None Include="Resources\send_btn.png" />
     <Content Include="vllogo.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

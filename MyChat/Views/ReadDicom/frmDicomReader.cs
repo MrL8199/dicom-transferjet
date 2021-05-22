@@ -4,8 +4,10 @@ using MyChat.DicomLib;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace MyChat.Views.ReadDicom
@@ -16,22 +18,84 @@ namespace MyChat.Views.ReadDicom
 
         Dicom.DicomFile file;
         List<string> fileTags = new List<string>();
+        PictureBox org;
 
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn(
+            int nLeftRect,
+            int nTopRect,
+            int nRightRect,
+            int nBottomRect,
+            int nWidthEllipse,
+            int nHeightEllipse
+
+        );
+
+        #region Form
         public frmDicomReader()
         {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 15, 15));
         }
 
         public frmDicomReader(string pathFile)
         {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 15, 15));
             string fileName = Path.GetFileName(pathFile);
             if (fileName.Length > 0)
             {
-                //Cursor = Cursors.WaitCursor;
+                Cursor.Current = Cursors.WaitCursor;
                 ReadAndDisplayDicomFile(fileName, fileName);
                 imageOpened = true;
-                //Cursor = Cursors.Default;
+                Cursor.Current = Cursors.Default;
+            }
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //if (imagePanelControl != null) imagePanelControl.Dispose();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (imageOpened == true)
+            {
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Filter = "PNG Files(*.png)|*.png";
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        org.Image.Save(sfd.FileName, ImageFormat.Png);
+                        MessageBox.Show("Đã lưu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Đã có lỗi xảy ra khi lưu file", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        throw;
+                    }
+                    finally
+                    {
+                        sfd.Dispose();
+                    }
+                }
+                //imagePanelControl.SaveImage(sfd.FileName);
+            }
+            else
+                MessageBox.Show("Vui lòng mở file DICOM trước khi chọn tính năng này!", "Thông tin",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void trackBar_Scroll(object sender, EventArgs e)
+        {
+            if (trackBar.Value != 0)
+            {
+                pictureBox1.Image = null;
+                pictureBox1.Image = ZoomPicute(org.Image, new Size(trackBar.Value, trackBar.Value));
             }
         }
 
@@ -43,28 +107,13 @@ namespace MyChat.Views.ReadDicom
             {
                 if (ofd.FileName.Length > 0)
                 {
-                    //Cursor = Cursors.WaitCursor;
+                    Cursor.Current = Cursors.WaitCursor;
                     ReadAndDisplayDicomFile(ofd.FileName, ofd.SafeFileName);
                     imageOpened = true;
-                    //Cursor = Cursors.Default;
+                    Cursor.Current = Cursors.Default;
                 }
                 ofd.Dispose();
             }
-        }
-
-        private void ReadAndDisplayDicomFile(string fileName, string fileNameOnly)
-        {
-            file = DicomFile.Open(fileName);
-            foreach (var tag in file.Dataset)
-            {
-                string str = ($"{tag}|{file.Dataset.GetValueOrDefault(tag.Tag, 0, "")}");
-                fileTags.Add(str);
-            }
-            IImage image = new DicomImage(fileName).RenderImage();
-            Bitmap bmp = image.AsBitmap();
-            this.pictureBox1.Image = bmp;
-
-            SetString();
         }
 
         private void bnTags_Click(object sender, EventArgs e)
@@ -78,6 +127,84 @@ namespace MyChat.Views.ReadDicom
             else
                 MessageBox.Show("Vui lòng mở file DICOM trước khi xem Tags!", "Chú Ý !!!",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        #endregion
+
+        #region Process image
+        Image ZoomPicute(Image img, Size size)
+        {
+            Bitmap bm = new Bitmap(img, Convert.ToInt32(img.Width * size.Width), Convert.ToInt32(img.Height * size.Height));
+            Graphics gpu = Graphics.FromImage(bm);
+            gpu.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+            return bm;
+        }
+
+        private void SaveVaryQualityLevel(Bitmap bmp, string path)
+        {
+            ImageCodecInfo jgpEncoder = GetEncoder(ImageFormat.Jpeg);
+
+            // Create an Encoder object based on the GUID
+            // for the Quality parameter category.
+            System.Drawing.Imaging.Encoder myEncoder =
+                System.Drawing.Imaging.Encoder.Quality;
+
+            // Create an EncoderParameters object.
+            // An EncoderParameters object has an array of EncoderParameter
+            // objects. In this case, there is only one
+            // EncoderParameter object in the array.
+            EncoderParameters myEncoderParameters = new EncoderParameters(1);
+
+            EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, 100L);
+            myEncoderParameters.Param[0] = myEncoderParameter;
+            bmp.Save(path, jgpEncoder,
+                myEncoderParameters);
+        }
+
+        private ImageCodecInfo GetEncoder(ImageFormat format)
+        {
+            ImageCodecInfo[] codecs = ImageCodecInfo.GetImageDecoders();
+            foreach (ImageCodecInfo codec in codecs)
+            {
+                if (codec.FormatID == format.Guid)
+                {
+                    return codec;
+                }
+            }
+            return null;
+        }
+        #endregion
+
+        #region Read DICOM file
+        private void ReadAndDisplayDicomFile(string fileName, string fileNameOnly)
+        {
+            file = DicomFile.Open(fileName);
+            foreach (var tag in file.Dataset)
+            {
+                string str = ($"{tag}|{file.Dataset.GetValueOrDefault(tag.Tag, 0, "")}");
+                fileTags.Add(str);
+            }
+            IImage image = new DicomImage(fileName).RenderImage();
+            var dicomimg = new DicomImage(fileName);
+            label_size.Text = dicomimg.Height.ToString() + "x" + dicomimg.Width.ToString() + " pixel";
+            dicomimg.Scale = 1;
+
+            Bitmap bmp = image.AsSharedBitmap();
+            Size newSize = new Size((int)(dicomimg.Width * 2), (int)(dicomimg.Height * 2));
+            bmp = new Bitmap(bmp, newSize);
+            this.pictureBox1.Image = bmp;
+
+            trackBar.Minimum = 1;
+            trackBar.Maximum = 6;
+            trackBar.SmallChange = 1;
+            trackBar.LargeChange = 1;
+            trackBar.UseWaitCursor = false;
+
+            this.DoubleBuffered = true;
+            org = new PictureBox();
+            org.Image = pictureBox1.Image;
+
+            SetString();
         }
 
         public void SetString()
@@ -127,8 +254,11 @@ namespace MyChat.Views.ReadDicom
             txtPhone.Enabled = false;
             txtBodyPart.Enabled = false;
             txtAddr.Enabled = false;
+            lblSizeImage.Visible = true;
+            label_size.Visible = true;
+            trackBar.Visible = true;
+            lblZoom.Visible = true;
         }
-
 
         void ExtractStrings(string inputTag, out string tagDescription, out string value, out string groupTag, out string elementTag)
         {
@@ -142,25 +272,6 @@ namespace MyChat.Views.ReadDicom
             tagDescription = tag.Substring(11);
         }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            //if (imagePanelControl != null) imagePanelControl.Dispose();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (imageOpened == true)
-            {
-                SaveFileDialog sfd = new SaveFileDialog();
-                sfd.Filter = "PNG Files(*.png)|*.png";
-
-                if (sfd.ShowDialog() == DialogResult.OK)
-                    Console.WriteLine("hi");
-                    //imagePanelControl.SaveImage(sfd.FileName);
-            }
-            else
-                MessageBox.Show("Vui lòng mở file DICOM trước khi chọn tính năng này!", "Thông tin",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
+        #endregion
     }
 }

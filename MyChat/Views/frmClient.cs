@@ -3,24 +3,24 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace MyChat
+namespace MyChat.Views
 {
-    public partial class frmClient : Form
+    public partial class frmClient : MetroFramework.Forms.MetroForm
     {
         #region Khai Báo biến
         /// <summary>
         /// Di chuyển form
         /// </summary>
-        private bool drag = false;
-        private Point dragCursor, dragForm;
 
         Conversation conversation = new Conversation();
 
@@ -165,7 +165,7 @@ namespace MyChat
                 try
                 {
                     s = sr.ReadLine();
-                    if (s != null)
+                    if (s != null && s != "")
                     {
                         if (s == Setting.MarkSendFile)       // Nếu gửi file
                         {
@@ -256,15 +256,27 @@ namespace MyChat
             {
                 webMain.Document.Write(conversation.GetHTML);
                 webMain.Refresh();
-              //  webMain.Document.Window.ScrollTo(0, webMain.Document.Body.ScrollRectangle.Height);
+                //  webMain.Document.Window.ScrollTo(0, webMain.Document.Body.ScrollRectangle.Height);
             }));
         }
         #endregion
 
         #region Forms
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn(
+            int nLeftRect,
+            int nTopRect,
+            int nRightRect,
+            int nBottomRect,
+            int nWidthEllipse,
+            int nHeightEllipse
+
+        );
         public frmClient()
         {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 15, 15));
             this.Padding = new Padding(1);
 
             sender = new Sender() { Address = Setting.Server, Port = Setting.Port, Tcp = Setting.TcpServer };
@@ -275,31 +287,32 @@ namespace MyChat
 
         private void frmClient_Load(object sender, EventArgs e)
         {
-            //lblTitle.Text = this.Text = "KẾT NỐI VỚI " + Setting.Server;
+            this.Text = this.Text = "KẾT NỐI VỚI " + Setting.Server;
 
             txtMessage.Focus();
         }
 
         private void frmClient_FormClosing(object sender, FormClosingEventArgs e)
         {
-            foreach (var f in lstFileName)
-            {
-                if (File.Exists(f))
-                    File.Delete(f);
-            }
+            if (Properties.Settings.Default.DeleteWhenExit)
+                foreach (var f in lstFileName)
+                {
+                    if (File.Exists(f))
+                        File.Delete(f);
+                }
             t.Abort();
             Setting.TcpServer.Close();
         }
 
         private void frmClient_Deactived(object sender, EventArgs e)
         {
-            //BackColor = Color.DimGray;
+            BackColor = Color.DimGray;
             _focus = false;
         }
 
         private void frmClient_Activated(object sender, EventArgs e)
         {
-            //BackColor = Color.DarkOrange;
+            BackColor = Color.DarkOrange;
             txtMessage.Focus();
 
             _focus = true;
@@ -320,36 +333,6 @@ namespace MyChat
                 cp.ExStyle |= 0x02000000; // Turn on WS_EX_COMPOSITED
                 return cp;
             }
-        }
-        #endregion
-
-        #region Move form
-        private void frmClient_MouseDown(object sender, MouseEventArgs e)
-        {
-            drag = true;
-            dragCursor = Cursor.Position;
-            dragForm = this.Location;
-        }
-
-        private void frmClient_MouseMove(object sender, MouseEventArgs e)
-        {
-            int wid = SystemInformation.VirtualScreen.Width;
-            int hei = SystemInformation.VirtualScreen.Height;
-            if (drag)
-            {
-                Point change = Point.Subtract(Cursor.Position, new Size(dragCursor));
-                Point newpos = Point.Add(dragForm, new Size(change));
-                if (newpos.X < 0) newpos.X = 0;
-                if (newpos.Y < 0) newpos.Y = 0;
-                if (newpos.X + this.Width > wid) newpos.X = wid - this.Width;
-                if (newpos.Y + this.Height > hei) newpos.Y = hei - this.Height;
-                this.Location = newpos;
-            }
-        }
-
-        private void frmClient_MouseUp(object sender, MouseEventArgs e)
-        {
-            drag = false;
         }
         #endregion
 
@@ -396,16 +379,51 @@ namespace MyChat
             e.Cancel = true;
             if (e.Url.ToString() != "about:blank")
             {
+                string Address = "";
                 string url = e.Url.PathAndQuery;
-                frmOpenFile frm = new frmOpenFile(url);
-                frm.ShowDialog();
+                Address = url.Replace("(~*)", ":");
+                Uri uri = new UriBuilder() { Scheme = Uri.UriSchemeFile, Host = "", Path = Address }.Uri;
+                bool isDicomFile = Path.GetFileName(uri.LocalPath).EndsWith("dcm");
+                Address = uri.LocalPath;
+                if (File.Exists(Address))
+                    try
+                    {
+                        if (isDicomFile)
+                        {
+                            frmDicomReader frm = new frmDicomReader(Address);
+                            MaskedDialog.ShowDialog(this, frm);
+                            frm.Dispose();
+                            frm = null;
+                        }
+
+                        else
+                            Process.Start("explorer.exe", " /select, " + Address);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Không thể mở file");
+                    }
+                else
+                    MessageBox.Show("Tập tin không tồn tại");
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void metroLink1_Click(object sender, EventArgs e)
+        {
+            ctxMenu.Show(humbugerMenu, 0, humbugerMenu.Height);
+        }
+
+        private void openDICOMFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmDicomReader frm = new frmDicomReader();
-            frm.Show();
+            MaskedDialog.ShowDialog(this, frm);
+            frm.Dispose();
+            frm = null;
         }
 
         private void btnImage_Click(object sender, EventArgs e)

@@ -47,11 +47,16 @@
             this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
-            this.label8 = new MetroFramework.Controls.MetroLabel();
+            this.lblSizeImage = new MetroFramework.Controls.MetroLabel();
             this.label_size = new MetroFramework.Controls.MetroLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lblZoom = new MetroFramework.Controls.MetroLabel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.trackBar = new System.Windows.Forms.TrackBar();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.SuspendLayout();
             // 
             // bnOpen
@@ -101,9 +106,9 @@
             this.groupBox1.Controls.Add(this.metroLabel2);
             this.groupBox1.Controls.Add(this.metroLabel1);
             this.groupBox1.Font = new System.Drawing.Font("Applemint", 10.25F, System.Drawing.FontStyle.Bold);
-            this.groupBox1.Location = new System.Drawing.Point(23, 198);
+            this.groupBox1.Location = new System.Drawing.Point(23, 240);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(242, 331);
+            this.groupBox1.Size = new System.Drawing.Size(242, 290);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin cơ bản";
@@ -389,15 +394,15 @@
             this.metroLabel1.TabIndex = 3;
             this.metroLabel1.Text = "ID bệnh nhân:";
             // 
-            // label8
+            // lblSizeImage
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(23, 162);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(96, 19);
-            this.label8.TabIndex = 3;
-            this.label8.Text = "Kích thước ảnh:";
-            this.label8.Visible = false;
+            this.lblSizeImage.AutoSize = true;
+            this.lblSizeImage.Location = new System.Drawing.Point(23, 162);
+            this.lblSizeImage.Name = "lblSizeImage";
+            this.lblSizeImage.Size = new System.Drawing.Size(96, 19);
+            this.lblSizeImage.TabIndex = 3;
+            this.lblSizeImage.Text = "Kích thước ảnh:";
+            this.lblSizeImage.Visible = false;
             // 
             // label_size
             // 
@@ -411,32 +416,67 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.pictureBox1.Location = new System.Drawing.Point(287, 63);
+            this.pictureBox1.BackColor = System.Drawing.Color.White;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(700, 466);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
+            // 
+            // lblZoom
+            // 
+            this.lblZoom.AutoSize = true;
+            this.lblZoom.Location = new System.Drawing.Point(23, 194);
+            this.lblZoom.Name = "lblZoom";
+            this.lblZoom.Size = new System.Drawing.Size(48, 19);
+            this.lblZoom.TabIndex = 3;
+            this.lblZoom.Text = "Zoom:";
+            this.lblZoom.Visible = false;
+            // 
+            // panel1
+            // 
+            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Location = new System.Drawing.Point(287, 63);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(700, 466);
+            this.panel1.TabIndex = 6;
+            // 
+            // trackBar
+            // 
+            this.trackBar.Location = new System.Drawing.Point(77, 194);
+            this.trackBar.Name = "trackBar";
+            this.trackBar.Size = new System.Drawing.Size(188, 45);
+            this.trackBar.TabIndex = 7;
+            this.trackBar.Visible = false;
+            this.trackBar.Scroll += new System.EventHandler(this.trackBar_Scroll);
             // 
             // frmDicomReader
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1010, 552);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.trackBar);
             this.Controls.Add(this.label_size);
-            this.Controls.Add(this.label8);
+            this.Controls.Add(this.lblZoom);
+            this.Controls.Add(this.lblSizeImage);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.bnTags);
             this.Controls.Add(this.bnOpen);
+            this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmDicomReader";
             this.Text = "Trình Đọc File DICOM";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -448,7 +488,7 @@
         private MetroFramework.Controls.MetroButton bnTags;
         private MetroFramework.Controls.MetroButton button1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private MetroFramework.Controls.MetroLabel label8;
+        private MetroFramework.Controls.MetroLabel lblSizeImage;
         private MetroFramework.Controls.MetroLabel label_size;
         private MetroFramework.Controls.MetroLabel metroLabel7;
         private MetroFramework.Controls.MetroLabel metroLabel6;
@@ -465,5 +505,8 @@
         private MetroFramework.Controls.MetroTextBox txtName;
         private MetroFramework.Controls.MetroTextBox txtID;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private MetroFramework.Controls.MetroLabel lblZoom;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TrackBar trackBar;
     }
 }

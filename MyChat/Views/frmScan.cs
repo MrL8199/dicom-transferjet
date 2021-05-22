@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using ThoughtWorks.QRCode.Codec;
 
@@ -21,6 +22,17 @@ namespace MyChat
         List<string> lstIpAddress;
         int i = 0;
         #endregion
+
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn(
+            int nLeftRect,
+            int nTopRect,
+            int nRightRect,
+            int nBottomRect,
+            int nWidthEllipse,
+            int nHeightEllipse
+
+        );
 
         Bitmap GenerateQR(string s)
         {
@@ -45,6 +57,8 @@ namespace MyChat
         public frmScan()
         {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 15, 15));
             this.Padding = new Padding(1);
 
             lstIpAddress = new List<string>();
