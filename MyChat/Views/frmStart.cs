@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -90,6 +91,20 @@ namespace MyChat.Views
 
 
             this.DialogResult = DialogResult.OK;
+        }
+
+        private void frmStart_Load(object sender, EventArgs e)
+        {
+            string folder = Properties.Settings.Default.FolderSave;
+            if (folder.Equals(""))
+            {
+                folder = Directory.GetCurrentDirectory() + "/" + "Receive_file";
+            }
+            if (!Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder); ;
+            }
+            Properties.Settings.Default.FolderSave = folder;
         }
     }
 }

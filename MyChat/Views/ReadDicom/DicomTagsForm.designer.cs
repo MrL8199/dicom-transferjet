@@ -45,7 +45,7 @@
             this.bnClose.Name = "bnClose";
             this.bnClose.Size = new System.Drawing.Size(100, 23);
             this.bnClose.TabIndex = 1;
-            this.bnClose.Text = "Close";
+            this.bnClose.Text = "Đóng";
             this.bnClose.UseVisualStyleBackColor = true;
             // 
             // listView
@@ -92,7 +92,7 @@
             this.bnSaveAs.Name = "bnSaveAs";
             this.bnSaveAs.Size = new System.Drawing.Size(100, 23);
             this.bnSaveAs.TabIndex = 3;
-            this.bnSaveAs.Text = "Save As Text";
+            this.bnSaveAs.Text = "Lưu dạng Text";
             this.bnSaveAs.UseVisualStyleBackColor = true;
             this.bnSaveAs.Click += new System.EventHandler(this.bnSaveAs_Click);
             // 
@@ -111,7 +111,7 @@
             this.Name = "DicomTagsForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "DICOM Tags";
+            this.Text = "Header File DICOM";
             this.ResumeLayout(false);
 
         }

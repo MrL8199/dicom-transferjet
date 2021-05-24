@@ -43,9 +43,10 @@
             this.prgFile = new System.Windows.Forms.ProgressBar();
             this.panelBtnContainer = new System.Windows.Forms.Panel();
             this.ctxMenu = new MetroFramework.Controls.MetroContextMenu(this.components);
-            this.openDICOMFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFolderFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnOpenDicomViewer = new MetroFramework.Controls.MetroLink();
             this.humbugerMenu = new MetroFramework.Controls.MetroLink();
             this.btnAddConnect1 = new MetroFramework.Controls.MetroLink();
             this.btnAddConnect = new System.Windows.Forms.Button();
@@ -186,30 +187,43 @@
             // 
             this.ctxMenu.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ctxMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openDICOMFileToolStripMenuItem,
+            this.openFolderFileToolStripMenuItem,
             this.dToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.ctxMenu.Name = "ctxMenu";
-            this.ctxMenu.Size = new System.Drawing.Size(292, 70);
+            this.ctxMenu.Size = new System.Drawing.Size(338, 92);
             // 
-            // openDICOMFileToolStripMenuItem
+            // openFolderFileToolStripMenuItem
             // 
-            this.openDICOMFileToolStripMenuItem.Name = "openDICOMFileToolStripMenuItem";
-            this.openDICOMFileToolStripMenuItem.Size = new System.Drawing.Size(291, 30);
-            this.openDICOMFileToolStripMenuItem.Text = "Mở Trình đọc file &DICOM";
-            this.openDICOMFileToolStripMenuItem.Click += new System.EventHandler(this.button1_Click);
+            this.openFolderFileToolStripMenuItem.Name = "openFolderFileToolStripMenuItem";
+            this.openFolderFileToolStripMenuItem.Size = new System.Drawing.Size(337, 30);
+            this.openFolderFileToolStripMenuItem.Text = "&Mở thư mục chứa file đã nhận";
+            this.openFolderFileToolStripMenuItem.Click += new System.EventHandler(this.openFolderFileToolStripMenuItem_Click);
             // 
             // dToolStripMenuItem
             // 
             this.dToolStripMenuItem.Name = "dToolStripMenuItem";
-            this.dToolStripMenuItem.Size = new System.Drawing.Size(288, 6);
+            this.dToolStripMenuItem.Size = new System.Drawing.Size(334, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(291, 30);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(337, 30);
             this.exitToolStripMenuItem.Text = "&Thoát";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // btnOpenDicomViewer
+            // 
+            this.btnOpenDicomViewer.Image = global::MyChat.Properties.Resources.dicom;
+            this.btnOpenDicomViewer.ImageSize = 40;
+            this.btnOpenDicomViewer.Location = new System.Drawing.Point(644, 13);
+            this.btnOpenDicomViewer.Name = "btnOpenDicomViewer";
+            this.btnOpenDicomViewer.NoFocusImage = global::MyChat.Properties.Resources.dicom;
+            this.btnOpenDicomViewer.Size = new System.Drawing.Size(45, 41);
+            this.btnOpenDicomViewer.TabIndex = 14;
+            this.toolTip1.SetToolTip(this.btnOpenDicomViewer, "Trình đọc file DICOM");
+            this.btnOpenDicomViewer.UseSelectable = true;
+            this.btnOpenDicomViewer.Click += new System.EventHandler(this.button1_Click);
             // 
             // humbugerMenu
             // 
@@ -312,6 +326,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(755, 535);
             this.ControlBox = false;
+            this.Controls.Add(this.btnOpenDicomViewer);
             this.Controls.Add(this.humbugerMenu);
             this.Controls.Add(this.panelBtnContainer);
             this.Controls.Add(this.panel3);
@@ -358,11 +373,12 @@
         private System.Windows.Forms.Button btnAddConnect;
         private MetroFramework.Controls.MetroLink humbugerMenu;
         private MetroFramework.Controls.MetroContextMenu ctxMenu;
-        private System.Windows.Forms.ToolStripMenuItem openDICOMFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openFolderFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator dToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private MetroFramework.Controls.MetroLink btnAddConnect1;
         private MetroFramework.Controls.MetroLink btnSend1;
         private MetroFramework.Controls.MetroLink btnImage;
+        private MetroFramework.Controls.MetroLink btnOpenDicomViewer;
     }
 }

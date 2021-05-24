@@ -153,6 +153,16 @@ namespace MyChat.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap dicom {
+            get {
+                object obj = ResourceManager.GetObject("dicom", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap humburger_menu_no_hover {
             get {
                 object obj = ResourceManager.GetObject("humburger_menu_no_hover", resourceCulture);

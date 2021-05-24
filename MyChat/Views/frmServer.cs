@@ -222,10 +222,28 @@ namespace MyChat.Views
         string DoReciveFile(StreamReader sr)
         {
             string filename = sr.ReadLine();        // Tên file
-            lstFileName.Add(filename);
+
+            // Thư mục chứa file
+            string path = Properties.Settings.Default.FolderSave + "\\" + filename;
+            if (Properties.Settings.Default.ChooseFolderWhenSave)
+            {
+                SaveFileDialog dia = new SaveFileDialog();
+                dia.FileName = filename;
+                dia.InitialDirectory = Properties.Settings.Default.FolderSave;
+                dia.RestoreDirectory = true;
+                dia.Title = "Lưu file";
+                dia.Filter = "Tất cả|*.*";
+                this.Invoke(new Action(() =>
+                {
+                    if (dia.ShowDialog() == DialogResult.OK)
+                        path = dia.FileName;
+                }));
+            }
+            lstFileName.Add(path);
+            filename = Path.GetFileName(path);
 
             int numPacket = Convert.ToInt32(sr.ReadLine());
-
+            // Nhận các packet của file và lưu lại theo địa chỉ path
             if (this.InvokeRequired)
             {
                 this.Invoke(new Action(() =>
@@ -234,7 +252,7 @@ namespace MyChat.Views
                     Cursor = Cursors.WaitCursor;
                     prgFile.Maximum = numPacket;
                     prgFile.Value = 0;
-                    FileStream file = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.Write);
+                    FileStream file = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
                     for (int i = 0; i < numPacket; i++)
                     {
                         string base64 = sr.ReadLine();      // Nội dung file
@@ -252,7 +270,6 @@ namespace MyChat.Views
                 }));
             }
 
-            string path = Directory.GetCurrentDirectory() + "/" + filename;
             Uri url = new Uri(path);
             string address = url.AbsoluteUri;
             string extension = Path.GetExtension(filename).ToLower();
@@ -504,6 +521,24 @@ namespace MyChat.Views
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void openFolderFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Directory.Exists(Properties.Settings.Default.FolderSave))
+            {
+                try
+                {
+                    string path = Application.StartupPath + @"\Receive_file";
+                    Process.Start("explorer.exe", $"/select, {path}");
+                }
+                catch
+                {
+                    MessageBox.Show("Không thể mở folder");
+                }
+            }
+            else
+                MessageBox.Show("Đường dẫn không tồn tại");
         }
     }
 }

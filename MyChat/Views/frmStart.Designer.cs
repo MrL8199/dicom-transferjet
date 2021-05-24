@@ -32,6 +32,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnStart = new MetroFramework.Controls.MetroTile();
+            this.metroProgressSpinner = new MetroFramework.Controls.MetroProgressSpinner();
             this.clientToggle = new MetroFramework.Controls.MetroToggle();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -40,7 +41,6 @@
             this.lblRunAsClient = new MetroFramework.Controls.MetroLabel();
             this.lblRunAsServer = new MetroFramework.Controls.MetroLabel();
             this.btnExit = new MetroFramework.Controls.MetroTile();
-            this.metroProgressSpinner = new MetroFramework.Controls.MetroProgressSpinner();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.btnStart.SuspendLayout();
@@ -79,6 +79,16 @@
             this.btnStart.TileTextFontSize = MetroFramework.MetroTileTextSize.Tall;
             this.btnStart.UseSelectable = true;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            // 
+            // metroProgressSpinner
+            // 
+            this.metroProgressSpinner.Location = new System.Drawing.Point(197, 10);
+            this.metroProgressSpinner.Maximum = 100;
+            this.metroProgressSpinner.Name = "metroProgressSpinner";
+            this.metroProgressSpinner.Size = new System.Drawing.Size(55, 55);
+            this.metroProgressSpinner.TabIndex = 10;
+            this.metroProgressSpinner.UseSelectable = true;
+            this.metroProgressSpinner.Visible = false;
             // 
             // clientToggle
             // 
@@ -198,16 +208,6 @@
             this.btnExit.UseSelectable = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
-            // metroProgressSpinner
-            // 
-            this.metroProgressSpinner.Location = new System.Drawing.Point(197, 10);
-            this.metroProgressSpinner.Maximum = 100;
-            this.metroProgressSpinner.Name = "metroProgressSpinner";
-            this.metroProgressSpinner.Size = new System.Drawing.Size(55, 55);
-            this.metroProgressSpinner.TabIndex = 10;
-            this.metroProgressSpinner.UseSelectable = true;
-            this.metroProgressSpinner.Visible = false;
-            // 
             // frmStart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -221,6 +221,7 @@
             this.MaximizeBox = false;
             this.Name = "frmStart";
             this.Text = "DICOM Transferjet";
+            this.Load += new System.EventHandler(this.frmStart_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.btnStart.ResumeLayout(false);

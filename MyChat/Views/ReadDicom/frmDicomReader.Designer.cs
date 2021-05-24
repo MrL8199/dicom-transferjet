@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDicomReader));
             this.bnOpen = new MetroFramework.Controls.MetroButton();
             this.bnTags = new MetroFramework.Controls.MetroButton();
-            this.button1 = new MetroFramework.Controls.MetroButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtBodyPart = new MetroFramework.Controls.MetroTextBox();
             this.txtPhone = new MetroFramework.Controls.MetroTextBox();
@@ -75,19 +74,9 @@
             this.bnTags.Name = "bnTags";
             this.bnTags.Size = new System.Drawing.Size(115, 25);
             this.bnTags.TabIndex = 0;
-            this.bnTags.Text = "Tất cả thẻ";
+            this.bnTags.Text = "Header File DICOM";
             this.bnTags.UseSelectable = true;
             this.bnTags.Click += new System.EventHandler(this.bnTags_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(23, 125);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(115, 25);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Lưu ảnh ra PNG";
-            this.button1.UseSelectable = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupBox1
             // 
@@ -397,7 +386,7 @@
             // lblSizeImage
             // 
             this.lblSizeImage.AutoSize = true;
-            this.lblSizeImage.Location = new System.Drawing.Point(23, 162);
+            this.lblSizeImage.Location = new System.Drawing.Point(23, 145);
             this.lblSizeImage.Name = "lblSizeImage";
             this.lblSizeImage.Size = new System.Drawing.Size(96, 19);
             this.lblSizeImage.TabIndex = 3;
@@ -407,7 +396,7 @@
             // label_size
             // 
             this.label_size.AutoSize = true;
-            this.label_size.Location = new System.Drawing.Point(125, 162);
+            this.label_size.Location = new System.Drawing.Point(125, 145);
             this.label_size.Name = "label_size";
             this.label_size.Size = new System.Drawing.Size(30, 19);
             this.label_size.TabIndex = 3;
@@ -427,7 +416,7 @@
             // lblZoom
             // 
             this.lblZoom.AutoSize = true;
-            this.lblZoom.Location = new System.Drawing.Point(23, 194);
+            this.lblZoom.Location = new System.Drawing.Point(23, 177);
             this.lblZoom.Name = "lblZoom";
             this.lblZoom.Size = new System.Drawing.Size(48, 19);
             this.lblZoom.TabIndex = 3;
@@ -445,7 +434,7 @@
             // 
             // trackBar
             // 
-            this.trackBar.Location = new System.Drawing.Point(77, 194);
+            this.trackBar.Location = new System.Drawing.Point(77, 177);
             this.trackBar.Name = "trackBar";
             this.trackBar.Size = new System.Drawing.Size(188, 45);
             this.trackBar.TabIndex = 7;
@@ -462,7 +451,6 @@
             this.Controls.Add(this.lblZoom);
             this.Controls.Add(this.lblSizeImage);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.bnTags);
             this.Controls.Add(this.bnOpen);
             this.Controls.Add(this.panel1);
@@ -486,7 +474,6 @@
 
         private MetroFramework.Controls.MetroButton bnOpen;
         private MetroFramework.Controls.MetroButton bnTags;
-        private MetroFramework.Controls.MetroButton button1;
         private System.Windows.Forms.GroupBox groupBox1;
         private MetroFramework.Controls.MetroLabel lblSizeImage;
         private MetroFramework.Controls.MetroLabel label_size;
